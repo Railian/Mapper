@@ -1,8 +1,5 @@
 package ua.railian.mapper
 
-import ua.railian.mapper.contract.Mapper
-import ua.railian.mapper.contract.enumMapper
-import ua.railian.mapper.contract.twoWayMapper
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -21,20 +18,20 @@ class MapperTest {
     @Test
     fun testTwoWayMapper() {
         val mapper = twoWayMapper<String?, Int?>(
-            oneWay = { it?.filter(Char::isDigit)?.toIntOrNull() },
-            backWay = { it?.toString() },
+            forward = { it?.filter(Char::isDigit)?.toIntOrNull() },
+            backward = { it?.toString() },
         )
-        assertEquals(expected = 0, actual = mapper.map(source = "qwer00rty00-=*"))
-        assertEquals(expected = 123456789, actual = mapper.map(source = "1q2w3e4r5r6t7y8-9=*"))
-        assertEquals(expected = "0", actual = mapper.mapBack(source = 0))
-        assertEquals(expected = "123", actual = mapper.mapBack(source = 123))
+        assertEquals(expected = 0, actual = mapper.mapForward(source = "qwer00rty00-=*"))
+        assertEquals(expected = 123456789, actual = mapper.mapForward(source = "1q2w3e4r5r6t7y8-9=*"))
+        assertEquals(expected = "0", actual = mapper.mapBackward(source = 0))
+        assertEquals(expected = "123", actual = mapper.mapBackward(source = 123))
     }
 
     private enum class TestEnum { ONE, TWO, THREE, FOUR, UNKNOWN }
 
     @Test
-    fun testEnumMapper() {
-        val mapper = enumMapper(
+    fun testEnumTwoWayMapper() {
+        val mapper = enumTwoWayMapper(
             default = TestEnum.UNKNOWN,
             associate = {
                 when (it) {
@@ -46,11 +43,11 @@ class MapperTest {
                 }
             },
         )
-        assertEquals(expected = null, actual = mapper.map(source = TestEnum.UNKNOWN))
-        assertEquals(expected = 1, actual = mapper.map(source = TestEnum.ONE))
-        assertEquals(expected = 2, actual = mapper.map(source = TestEnum.TWO))
-        assertEquals(expected = TestEnum.THREE, actual = mapper.mapBack(source = 3))
-        assertEquals(expected = TestEnum.FOUR, actual = mapper.mapBack(source = 4))
-        assertEquals(expected = TestEnum.UNKNOWN, actual = mapper.mapBack(source = 123))
+        assertEquals(expected = null, actual = mapper.mapForward(source = TestEnum.UNKNOWN))
+        assertEquals(expected = 1, actual = mapper.mapForward(source = TestEnum.ONE))
+        assertEquals(expected = 2, actual = mapper.mapForward(source = TestEnum.TWO))
+        assertEquals(expected = TestEnum.THREE, actual = mapper.mapBackward(source = 3))
+        assertEquals(expected = TestEnum.FOUR, actual = mapper.mapBackward(source = 4))
+        assertEquals(expected = TestEnum.UNKNOWN, actual = mapper.mapBackward(source = 123))
     }
 }

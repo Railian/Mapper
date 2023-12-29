@@ -1,22 +1,22 @@
-package ua.railian.mapper.contract
+package ua.railian.mapper
 
 import kotlin.enums.EnumEntries
 import kotlin.enums.enumEntries
 
-public interface EnumMapper<E, R> : TwoWayMapper<E, R> where E : Enum<E> {
+public interface EnumTwoWayMapper<E, R> : TwoWayMapper<E, R> where E : Enum<E> {
     public val default: E
 }
 
-public fun <E, R> enumMapper(
+public fun <E, R> enumTwoWayMapper(
     default: E,
     enumEntries: EnumEntries<E>,
     associate: (enum: E) -> R,
-): EnumMapper<E, R> where E : Enum<E> {
-    return object : EnumMapper<E, R> {
+): EnumTwoWayMapper<E, R> where E : Enum<E> {
+    return object : EnumTwoWayMapper<E, R> {
         val associations by lazy { enumEntries.associateWith(associate) }
         override val default = default
-        override val oneWay: Mapper<E, R> = Mapper(associate)
-        override val backWay: Mapper<R, E> = Mapper { value ->
+        override val forward = Mapper(associate)
+        override val backward = Mapper { value: R ->
             val valueAssociations = associations.filterValues { value == it }
             when {
                 valueAssociations.isEmpty() -> default
@@ -27,11 +27,11 @@ public fun <E, R> enumMapper(
 }
 
 @OptIn(ExperimentalStdlibApi::class)
-public inline fun <reified E, R> enumMapper(
+public inline fun <reified E, R> enumTwoWayMapper(
     default: E,
     noinline associate: (enum: E) -> R,
-): EnumMapper<E, R> where E : Enum<E> {
-    return enumMapper(
+): EnumTwoWayMapper<E, R> where E : Enum<E> {
+    return enumTwoWayMapper(
         default = default,
         enumEntries = enumEntries<E>(),
         associate = associate,
