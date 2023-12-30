@@ -12,7 +12,7 @@ plugins {
 group = "io.github.railian.mapper"
 
 val isSnapshot = false
-version = "0.1.3" + if (isSnapshot) "-SNAPSHOT" else ""
+version = "0.1.4" + if (isSnapshot) "-SNAPSHOT" else ""
 
 kotlin {
     explicitApi = ExplicitApiMode.Strict
