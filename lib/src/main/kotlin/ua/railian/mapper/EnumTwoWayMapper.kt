@@ -4,13 +4,14 @@ import kotlin.enums.EnumEntries
 import kotlin.enums.enumEntries
 
 /**
- * Mapper that can map enums in both directions.
+ * Mapper to map enums in both directions.
  *
  * @param E enum type
  * @param R some value type
  * @see TwoWayMapper
  */
-public interface EnumTwoWayMapper<E, R> : TwoWayMapper<E, R> where E : Enum<E> {
+public interface EnumTwoWayMapper<E, R> :
+    TwoWayMapper<E, R, Mapper<E, R>, Mapper<R, E>> where E : Enum<E> {
 
     /**
      * Default enum value that will be used as a fallback for unknown values.
@@ -19,14 +20,14 @@ public interface EnumTwoWayMapper<E, R> : TwoWayMapper<E, R> where E : Enum<E> {
 }
 
 /**
- * Creates [EnumTwoWayMapper] for all [EnumEntries] by [associate] function.
+ * Creates [EnumTwoWayMapper] for all [EnumEntries] with [associate] function.
  *
  * @param E enum type
  * @param R some value type
  * @param default enum value that will be used as a fallback for unknown values
  * @param enumEntries all enum entries
  * @param associate function that pairs enum with some value
- * @return mapper that can map enums in both directions
+ * @return mapper to map enums in both directions
  */
 public fun <E, R> enumTwoWayMapper(
     default: E,
@@ -48,13 +49,13 @@ public fun <E, R> enumTwoWayMapper(
 }
 
 /**
- * Creates [EnumTwoWayMapper] for all [EnumEntries] by [associate] function.
+ * Creates [EnumTwoWayMapper] for all [EnumEntries] with [associate] function.
  *
  * @param E enum type
  * @param R some value type
  * @param default enum value that will be used as a fallback for unknown values
  * @param associate function that pairs enum with some value
- * @return mapper that can map enums in both directions
+ * @return mapper to map enums in both directions
  */
 @OptIn(ExperimentalStdlibApi::class)
 public inline fun <reified E, R> enumTwoWayMapper(

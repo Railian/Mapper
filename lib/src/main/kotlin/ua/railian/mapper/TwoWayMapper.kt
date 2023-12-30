@@ -1,55 +1,43 @@
 package ua.railian.mapper
 
 /**
- * Mapper that can map both directions:
+ * Mapper to map entity in both directions:
  * forward - from [T] to [R] and backward - from [R] to [T].
  */
-public interface TwoWayMapper<T, R> {
+public interface TwoWayMapper<T, R, F, B>
+        where  F : OneWayMapper<out T, out R>,
+               B : OneWayMapper<out R, out T> {
 
     /**
-     * Mapper to map object in forward direction from [T] to [R].
+     * Mapper to map entity in forward direction from [T] to [R].
      *
-     * @see Mapper
+     * @see OneWayMapper
      */
-    public val forward: Mapper<T, R>
+    public val forward: F
 
     /**
-     * Mapper to map object in backward direction from [R] to [T].
+     * Mapper to map entity in backward direction from [R] to [T].
      *
-     * @see Mapper
+     * @see OneWayMapper
      */
-    public val backward: Mapper<R, T>
-
-    /**
-     * Map object in forward direction from [T] to [R].
-     *
-     * @param source object to map
-     * @return mapped object
-     */
-    public fun mapForward(source: T): R = forward.map(source)
-
-    /**
-     * Map object in backward direction from [R] to [T].
-     *
-     * @param source object to map
-     * @return mapped object
-     */
-    public fun mapBackward(source: R): T = backward.map(source)
+    public val backward: B
 }
 
 /**
- * Create [TwoWayMapper] from two simple [Mapper]s.
+ * Creates [TwoWayMapper] from two [OneWayMapper]s.
  *
- * @param forward mapper to map object from [T] to [R]
- * @param backward mapper to map object from [R] to [T]
- * @return mapper that can map both directions
+ * @param forward mapper to map entity from [T] to [R]
+ * @param backward mapper to map entity from [R] to [T]
+ * @return mapper to map entities in both directions
  */
-public fun <T, R> twoWayMapper(
-    forward: Mapper<T, R>,
-    backward: Mapper<R, T>,
-): TwoWayMapper<T, R> {
-    return object : TwoWayMapper<T, R> {
-        override val forward: Mapper<T, R> = forward
-        override val backward: Mapper<R, T> = backward
+public fun <T, R, F, B> twoWayMapper(
+    forward: F,
+    backward: B,
+): TwoWayMapper<out T, out R, F, B>
+        where  F : OneWayMapper<out T, out R>,
+               B : OneWayMapper<out R, out T> {
+    return object : TwoWayMapper<T, R, F, B> {
+        override val forward: F = forward
+        override val backward: B = backward
     }
 }
