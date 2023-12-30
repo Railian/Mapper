@@ -40,6 +40,29 @@ val enum = mapper.mapBackward(source = 2) // TWO
 val fallback = mapper.mapBackward(source = 123) // UNKNOWN
 ```
 
+You can also use these bulders for create mapper classes
+```kotlin
+class StringToIntMapper : Mapper<String, Int?> by Mapper({ it.toIntOrNull() })
+```
+```kotlin
+class StringIntMapper : TwoWayMapper<String?, Int?> by twoWayMapper(
+    forward = { it?.toIntOrNull() },
+    backward = { it?.toString() },
+)
+```
+```kotlin
+class TestEnumMapper : EnumTwoWayMapper<TestEnum, Int?> by enumTwoWayMapper(
+    default = TestEnum.UNKNOWN,
+    associate = {
+        when (it) {
+            TestEnum.ONE -> 1
+            TestEnum.TWO -> 2
+            TestEnum.UNKNOWN -> null
+        }
+    },
+)
+```
+
 ## Using in your projects
 ### Maven
 Add dependencies (you can also add other modules that you need) and make sure that you use the correct version:
