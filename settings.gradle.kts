@@ -15,5 +15,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Mapper"
+rootProject.name = "mapper"
 include(":lib")
