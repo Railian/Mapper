@@ -1,5 +1,5 @@
 # mapper
-[![maven-central](https://maven-badges.herokuapp.com/maven-central/io.github.railian.mapper/mapper/badge.svg?style=default&color=blue)](https://maven-badges.herokuapp.com/maven-central/io.github.railian.mapper/mapper)
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.railian.mapper/mapper.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22io.github.railian.mapper%22%20AND%20a:%22mapper%22)
 
 Simple library that helps to create an easy mappers from one entity to another.
 
