@@ -5,7 +5,7 @@ Simple library that helps to create an easy mappers from one entity to another.
 
 ## Using in your projects
 ### Maven
-Add dependencies (you can also add other modules that you need) and make sure that you use the correct version:
+Add dependencies and make sure that you use the correct version:
 
 ```xml
 <dependency>
@@ -16,7 +16,7 @@ Add dependencies (you can also add other modules that you need) and make sure th
 ```
 
 ### Gradle
-Add dependencies (you can also add other modules that you need) and make sure that you use the correct version:
+Add dependencies and make sure that you use the correct version:
 
 ```kotlin
 dependencies {
