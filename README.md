@@ -3,6 +3,35 @@
 
 Simple library that helps to create an easy mappers from one entity to another.
 
+## Using in your projects
+### Maven
+Add dependencies (you can also add other modules that you need) and make sure that you use the correct version:
+
+```xml
+<dependency>
+    <groupId>io.github.railian.mapper</groupId>
+    <artifactId>mapper</artifactId>
+    <version>0.1.4</version>
+</dependency>
+```
+
+### Gradle
+Add dependencies (you can also add other modules that you need) and make sure that you use the correct version:
+
+```kotlin
+dependencies {
+    implementation("io.github.railian.mapper:mapper:0.1.4")
+}
+```
+Make sure that you have mavenCentral() in the list of repositories:
+
+```kotlin
+repositories {
+    mavenCentral()
+}
+```
+
+## How to use
 One way mapper
 ```kotlin
 val mapper = oneWayMapper<String, Int?> { it.toIntOrNull() }
@@ -54,32 +83,4 @@ class TestEnumMapper : EnumTwoWayMapper<TestEnum, Int?> by enumTwoWayMapper(
         }
     },
 )
-```
-
-## Using in your projects
-### Maven
-Add dependencies (you can also add other modules that you need) and make sure that you use the correct version:
-
-```xml
-<dependency>
-    <groupId>io.github.railian.mapper</groupId>
-    <artifactId>mapper</artifactId>
-    <version>0.1.4</version>
-</dependency>
-```
-
-### Gradle
-Add dependencies (you can also add other modules that you need) and make sure that you use the correct version:
-
-```kotlin
-dependencies {
-    implementation("io.github.railian.mapper:mapper:0.1.4")
-}
-```
-Make sure that you have mavenCentral() in the list of repositories:
-
-```kotlin
-repositories {
-    mavenCentral()
-}
 ```
