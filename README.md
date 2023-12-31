@@ -68,7 +68,7 @@ val enum = mapper.backward.map(source = 2) // TWO
 val fallback = mapper.backward.map(source = 123) // UNKNOWN
 ```
 
-You can also use using delegate to create mapper class
+You can also use delegates to create a mapper class
 ```kotlin
 class StringToIntMapper : Mapper<String, Int?> by Mapper({ it.toIntOrNull() })
 ```
