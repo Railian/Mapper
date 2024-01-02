@@ -22,7 +22,7 @@ public fun interface Mapper<T, R> : OneWayMapper<T, R> {
      * @param source entity to map
      * @return mapped entity
      */
-    public fun map(source: T): R
+    public operator fun invoke(source: T): R
 }
 
 /**
@@ -41,7 +41,7 @@ public fun interface MapperWith1Param<T, R, P1> : OneWayMapper<T, R> {
      * @param p1 additional parameter
      * @return mapped entity
      */
-    public fun map(source: T, p1: P1): R
+    public operator fun invoke(source: T, p1: P1): R
 }
 
 /**
@@ -62,7 +62,7 @@ public fun interface MapperWith2Params<T, R, P1, P2> : OneWayMapper<T, R> {
      * @param p2 second additional parameter
      * @return mapped entity
      */
-    public fun map(source: T, p1: P1, p2: P2): R
+    public operator fun invoke(source: T, p1: P1, p2: P2): R
 }
 
 /**
@@ -85,7 +85,7 @@ public fun interface MapperWith3Params<T, R, P1, P2, P3> : OneWayMapper<T, R> {
      * @param p3 third additional parameter
      * @return mapped entity
      */
-    public fun map(source: T, p1: P1, p2: P2, p3: P3): R
+    public operator fun invoke(source: T, p1: P1, p2: P2, p3: P3): R
 }
 
 /**
@@ -110,7 +110,7 @@ public fun interface MapperWith4Params<T, R, P1, P2, P3, P4> : OneWayMapper<T, R
      * @param p4 fourth additional parameter
      * @return mapped entity
      */
-    public fun map(source: T, p1: P1, p2: P2, p3: P3, p4: P4): R
+    public operator fun invoke(source: T, p1: P1, p2: P2, p3: P3, p4: P4): R
 }
 
 /**
@@ -137,7 +137,7 @@ public fun interface MapperWith5Params<T, R, P1, P2, P3, P4, P5> : OneWayMapper<
      * @param p5 fifth additional parameter
      * @return mapped entity
      */
-    public fun map(source: T, p1: P1, p2: P2, p3: P3, p4: P4, p5: P5): R
+    public operator fun invoke(source: T, p1: P1, p2: P2, p3: P3, p4: P4, p5: P5): R
 }
 
 /**

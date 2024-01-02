@@ -6,7 +6,13 @@ Simple library that helps to create an easy mappers from one entity to another.
 One way mapper
 ```kotlin
 val mapper = oneWayMapper<String, Int?> { it.toIntOrNull() }
-val value = mapper.map(source = "12") // 12
+val value = mapper(source = "12") // 12
+```
+
+One way mapper with additional parameters
+```kotlin
+val mapper = oneWayMapper<String, Int?, Int> { it, radix -> it.toIntOrNull(radix) }
+val value = mapper(source = "FF", p1 = 16) // 255
 ```
 
 Two way mapper
@@ -15,8 +21,8 @@ val mapper = twoWayMapper(
     forward = oneWayMapper<String, Int?> { it.toIntOrNull() },
     backward = oneWayMapper<Int, String> { it.toString() },
 )
-val intValue = mapper.forward.map(source = "34") // 34
-val stringValue = mapper.backward.map(source = 56) // "56"
+val intValue = mapper.forward(source = "34") // 34
+val stringValue = mapper.backward(source = 56) // "56"
 ```
  
 Enum two way mapper
@@ -34,9 +40,9 @@ val mapper = enumTwoWayMapper(
         }
     },
 )
-val value = mapper.forward.map(source = TestEnum.ONE) // 1
-val enum = mapper.backward.map(source = 2) // TWO
-val fallback = mapper.backward.map(source = 123) // UNKNOWN
+val value = mapper.forward(source = TestEnum.ONE) // 1
+val enum = mapper.backward(source = 2) // TWO
+val fallback = mapper.backward(source = 123) // UNKNOWN
 ```
 
 You can also use using delegate to create mapper class
@@ -73,7 +79,7 @@ Add dependencies (you can also add other modules that you need) and make sure th
 
 ```kotlin
 dependencies {
-    implementation("io.github.railian.mapper:mapper:0.1.4")
+    implementation("io.github.railian.mapper:mapper:0.2.0")
 }
 ```
 Make sure that you have mavenCentral() in the list of repositories:
